@@ -3,7 +3,7 @@ package synthesizer;
 import org.junit.jupiter.api.Test;
 
 import synthesizer.Playback.AudioPlayer;
-import synthesizer.Util.Tone;
+import synthesizer.WaveForms.ModulatedWave;
 import synthesizer.WaveForms.SineWave;
 
 public class ToneTests {
@@ -11,12 +11,18 @@ public class ToneTests {
     @Test
     void toneTest() {
         SineWave wave = new SineWave();
-        wave.setFrequency(Tone.getFrequencyFromTone(40));
+
+        SineWave w3 = new SineWave();
+        w3.setAmplitude(0.05);
+        w3.setFrequency(10);
+
+        ModulatedWave w = new ModulatedWave(wave, w3);
+        w.setFrequency(440);
 
         AudioPlayer.play(new AudioPlayer.AudioProvider() {
             @Override
             public double nextFrame(double time, long sample) {
-                return wave.sample(time);
+                return w.sample(time);
             }
         });
     }
