@@ -1,6 +1,7 @@
 package synthesizer.Playback;
 
 import java.nio.ByteBuffer;
+import java.util.concurrent.TimeUnit;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
@@ -9,55 +10,66 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.AudioFormat.Encoding;
 
+import com.google.common.base.Stopwatch;
+
 public class AudioPlayer {
     private static final int SAMPLE_RATE = 44100;
     private static final double TIME_PER_SAMPLE = 1.0 / SAMPLE_RATE;
     private static final int SAMPLE_BITS = Short.BYTES * 8;
+    private static final int NUM_BUFFERED_SAMPLES = 512;
+    private static final double BLOCK_TIME = NUM_BUFFERED_SAMPLES * TIME_PER_SAMPLE;
 
-    public static abstract class AudioProvider {
-        public abstract double nextFrame(double time, long sample);
+    public static abstract class SampleProvider {
+        public abstract double nextSample(double time, long sample);
 
         public boolean isPlaying() {
             return true;
         }
     }
 
-    public static void play(AudioProvider audioProvider) throws AudioPlayerException {
+    public static void play(SampleProvider audioProvider) throws AudioPlayerException {
         AudioFormat format = new AudioFormat(
                 Encoding.PCM_SIGNED, SAMPLE_RATE, SAMPLE_BITS,
                 1, Short.BYTES, SAMPLE_RATE, true);
 
         SourceDataLine line = acquireLine(format);
         try {
-            line.open();
+            line.open(format, NUM_BUFFERED_SAMPLES * Short.BYTES);
         } catch (LineUnavailableException e) {
             throw new AudioPlayerException();
         }
         line.start();
 
+        final int bufferSize = 2 * line.getBufferSize() / 2;
+        final int bufferFrameCount = bufferSize / 2;
+
+        byte[] buffer = new byte[bufferSize];
+        ByteBuffer bufferWriter = ByteBuffer.wrap(buffer);
+
         long sampleCount = 0;
 
         while (audioProvider.isPlaying()) {
-            int bytesNeeded = line.available();
-            int numSamples = bytesNeeded / Short.BYTES;
+            final Stopwatch stopwatch = Stopwatch.createStarted();
 
-            if (numSamples > 0) {
-                ByteBuffer buffer = ByteBuffer.allocate(numSamples * Short.BYTES);
+            for (int i = 0; i < bufferFrameCount; i++) {
+                double sample = audioProvider.nextSample(
+                        sampleCount * TIME_PER_SAMPLE,
+                        sampleCount);
 
-                for (int i = 0; i < numSamples; i++) {
-                    double sample = audioProvider.nextFrame(
-                            sampleCount * TIME_PER_SAMPLE,
-                            sampleCount);
+                bufferWriter.putShort((short) (sample * Short.MAX_VALUE));
 
-                    buffer.putShort((short) (sample *
-                            Short.MAX_VALUE));
-
-                    sampleCount++;
-                }
-
-                byte[] bytes = buffer.array();
-                line.write(bytes, 0, bytes.length);
+                sampleCount++;
             }
+
+            stopwatch.stop();
+
+            final long elapsed = stopwatch.elapsed(TimeUnit.NANOSECONDS);
+            if (elapsed > secondsToNanoSeconds(BLOCK_TIME)) {
+                System.out.println("warning audio player is lagging");
+            }
+
+            line.write(buffer, 0, buffer.length);
+            bufferWriter.clear();
         }
 
         line.drain();
@@ -80,7 +92,14 @@ public class AudioPlayer {
         }
     }
 
-    public static class AudioPlayerException extends RuntimeException {
+    public static double nanoSecondsToSeconds(long nanoSeconds) {
+        return nanoSeconds / 1000000000.0;
+    }
 
+    public static double secondsToNanoSeconds(double seconds) {
+        return seconds * 1000000000.0;
+    }
+
+    public static class AudioPlayerException extends RuntimeException {
     }
 }

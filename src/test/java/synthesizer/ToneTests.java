@@ -19,9 +19,9 @@ public class ToneTests {
         ModulatedWave w = new ModulatedWave(wave, w3);
         w.setFrequency(440);
 
-        AudioPlayer.play(new AudioPlayer.AudioProvider() {
+        AudioPlayer.play(new AudioPlayer.SampleProvider() {
             @Override
-            public double nextFrame(double time, long sample) {
+            public double nextSample(double time, long sample) {
                 return w.sample(time);
             }
         });
