@@ -1,0 +1,35 @@
+{
+    "namedWaves": {
+        "voice1": {
+            "waveType": "triangle",
+            "amplitude": 0.2,
+            "frequency": 300
+        },
+        "voice2": {
+            "waveType": "saw",
+            "amplitude": 0.2,
+            "frequency": 550
+        },
+        "voice3": {
+            "waveType": "sine",
+            "amplitude": 0.01,
+            "frequency": 1
+        },
+        "voice4": {
+            "waveType": "modulated",
+            "messageWave": "voice1",
+            "modulatingWave": "voice3",
+            "frequency": 440
+        }
+    },
+    "namedVoices": {
+        "myVoice2": {
+            "waveForm": {
+                "waveType": "additive",
+                "bottomWave": "voice2",
+                "topWave": "voice4"
+            },
+            "envelope": {}
+        }
+    }
+}
