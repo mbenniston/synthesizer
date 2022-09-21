@@ -5,6 +5,7 @@ import synthesizer.Util.Tone;
 public class Instrument {
     private VoiceCollection collection = new VoiceCollection();
     private Voice[] voices = new Voice[128];
+    private double volumeScale = 1.0;
 
     public Instrument(Voice voicePrototype) throws CloneNotSupportedException {
         for (int i = 0; i < 128; i++) {
@@ -27,7 +28,7 @@ public class Instrument {
     }
 
     public double sample(double currentTime) {
-        return collection.sample(currentTime);
+        return collection.sample(currentTime) * volumeScale;
     }
 
     public void printVoices(double currentTime) {
@@ -54,5 +55,9 @@ public class Instrument {
 
     public boolean isPlaying() {
         return collection.getActiveVoiceCount() > 0;
+    }
+
+    public void setVolumeScale(double volScale) {
+        volumeScale = volScale;
     }
 }

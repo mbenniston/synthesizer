@@ -22,6 +22,9 @@ public class AudioPlayer {
     public static abstract class SampleProvider {
         public abstract double nextSample(double time, long sample);
 
+        public void onBlockStart(double startTime, long startSample) {
+        }
+
         public boolean isPlaying() {
             return true;
         }
@@ -50,6 +53,7 @@ public class AudioPlayer {
 
         while (audioProvider.isPlaying()) {
             final Stopwatch stopwatch = Stopwatch.createStarted();
+            audioProvider.onBlockStart(sampleCount * TIME_PER_SAMPLE, sampleCount);
 
             for (int i = 0; i < bufferFrameCount; i++) {
                 double sample = audioProvider.nextSample(
