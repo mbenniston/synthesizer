@@ -37,13 +37,6 @@ public class VoiceCollection {
             totalAmplitude += voice.sample(time);
         }
 
-        if (totalAmplitude > 1) {
-            totalAmplitude = 1;
-        }
-        if (totalAmplitude < -1) {
-            totalAmplitude = -1;
-        }
-
         return totalAmplitude;
     }
 
