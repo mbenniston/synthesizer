@@ -3,12 +3,12 @@ package synthesizer.Util;
 public class Tone {
 
     private static final int SEMITONES_PER_OCTAVE = 14;
+    private static final double TWELTH_ROOT_OF_TWO = Math.pow(2.0, 1.0 / 12.0);
 
     public static double getFrequencyFromTone(int semiToneIndex) {
         final double baseOctaveFrequency = 8.18;
-        final double twelthRootOf2 = Math.pow(2.0, 1.0 / 12.0);
 
-        return getFrequencyFromTone(semiToneIndex, baseOctaveFrequency, twelthRootOf2);
+        return getFrequencyFromTone(semiToneIndex, baseOctaveFrequency);
     }
 
     public static double getFrequencyFromTone(int semiToneIndex, int octaveOffset) {
@@ -18,8 +18,8 @@ public class Tone {
 
     public static double getFrequencyFromTone(
             int semiToneIndex,
-            double baseOctaveFrequency,
-            double twelthRootOf2) {
-        return baseOctaveFrequency * Math.pow(twelthRootOf2, semiToneIndex);
+            double baseOctaveFrequency) {
+        return baseOctaveFrequency * Math.pow(TWELTH_ROOT_OF_TWO, semiToneIndex);
     }
+
 }

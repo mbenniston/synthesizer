@@ -2,10 +2,20 @@ package synthesizer.WaveForms;
 
 import synthesizer.Util.Tone;
 
-public class Instrument {
+public class Instrument implements Cloneable {
     private VoiceCollection collection = new VoiceCollection();
     private Voice[] voices = new Voice[128];
     private double volumeScale = 1.0;
+
+    public Instrument clone() throws CloneNotSupportedException {
+        Voice[] newVoices = new Voice[128];
+        for (int i = 0; i < 128; i++) {
+            newVoices[i] = voices[i].clone();
+        }
+        Instrument instrument = new Instrument(newVoices);
+        instrument.setVolumeScale(volumeScale);
+        return instrument;
+    }
 
     public Instrument(Voice voicePrototype) throws CloneNotSupportedException {
         for (int i = 0; i < 128; i++) {
@@ -13,6 +23,10 @@ public class Instrument {
             voice.waveForm.setFrequency(Tone.getFrequencyFromTone(i));
             voices[i] = voice;
         }
+    }
+
+    public Instrument(Voice[] voices) {
+        this.voices = voices;
     }
 
     public void PlayNote(int noteIndex, double currentTime) {

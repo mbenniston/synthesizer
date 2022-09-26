@@ -1,8 +1,8 @@
 package synthesizer.WaveForms;
 
 public class Voice implements Cloneable {
-    public WaveForm waveForm;
-    public Envelope envelope;
+    public final WaveForm waveForm;
+    public final Envelope envelope;
 
     public Voice(WaveForm waveForm, Envelope envelope) {
         this.waveForm = waveForm;
@@ -12,11 +12,14 @@ public class Voice implements Cloneable {
     public void start(double startTime) {
         envelope.reset();
         envelope.triggerOn(startTime);
+
+        waveForm.triggerOn(startTime);
         waveForm.setStartTime(startTime);
     }
 
     public void stop(double stopTime) {
         envelope.triggerOff(stopTime);
+        waveForm.triggerOff(stopTime);
     }
 
     public boolean isPlaying(double currentTime) {

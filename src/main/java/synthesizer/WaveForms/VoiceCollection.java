@@ -9,6 +9,8 @@ public class VoiceCollection {
         if (!voices.contains(voice)) {
             voice.start(startTime);
             voices.add(voice);
+        } else {
+            voice.start(startTime);
         }
     }
 

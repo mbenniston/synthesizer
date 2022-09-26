@@ -31,6 +31,12 @@ public abstract class WaveForm implements Cloneable {
         this.startTime = startTime;
     }
 
+    public void triggerOn(double startTime) {
+    }
+
+    public void triggerOff(double startTime) {
+    }
+
     public WaveForm clone() throws CloneNotSupportedException {
         return (WaveForm) super.clone();
     }

@@ -2,9 +2,13 @@ package synthesizer;
 
 import java.io.IOException;
 
+import javax.sound.sampled.UnsupportedAudioFileException;
+
+import org.json.JSONException;
 import org.junit.jupiter.api.Test;
 
-import synthesizer.Config.VoiceReader;
+import synthesizer.Config.InstrumentReader;
+import synthesizer.Config.InstrumentReader.LoadedInstrument;
 import synthesizer.Playback.AudioPlayer;
 import synthesizer.WaveForms.ModulatedWave;
 import synthesizer.WaveForms.SineWave;
@@ -32,17 +36,18 @@ public class ToneTests {
     }
 
     @Test
-    void voiceReaderTest() throws IOException {
-        var out = VoiceReader.load(ToneTests.class.getClassLoader().getResourceAsStream("voices.json"));
+    void voiceReaderTest() throws IOException, JSONException, UnsupportedAudioFileException {
+        // var out =
+        // VoiceReader.load(ToneTests.class.getClassLoader().getResourceAsStream("voices.json"));
 
-        Voice v = out.get("myVoice2");
-        v.start(0);
+        // LoadedInstrument v = out.get("myVoice2");
+        // v.instrument.start(0);
 
-        AudioPlayer.play(new AudioPlayer.SampleProvider() {
-            @Override
-            public double nextSample(double time, long sample) {
-                return v.sample(time);
-            }
-        });
+        // AudioPlayer.play(new AudioPlayer.SampleProvider() {
+        // @Override
+        // public double nextSample(double time, long sample) {
+        // return v.sample(time);
+        // }
+        // });
     }
 }

@@ -31,5 +31,28 @@
             },
             "envelope": {}
         }
+    },
+    "namedInstruments": {
+        "Piano": {
+            "programRange": {
+                "start": 0,
+                "end": 10
+            },
+            "notes": [
+                {
+                    "noteId": 0,
+                    "voice": {
+                        "waveForm": {
+                            "waveType": "sampled",
+                            "sampleSource": "internal:/samples/snore.wav",
+                            "loop": {
+                                "sampleStart": 98358,
+                                "sampleEnd": 98696
+                            }
+                        }
+                    }
+                }
+            ]
+        }
     }
 }

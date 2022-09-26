@@ -24,11 +24,11 @@ public class StandardVoices {
     }
 
     public static Voice createDefaultVoice3() {
-        WaveForm w = new SquareWave();
+        WaveForm w = new SawWave();
         Envelope envelope = new Envelope();
         w.setAmplitude(1 / 12.0);
 
-        WaveForm modulatingWave = new NoiseWave();
+        WaveForm modulatingWave = new SineWave();
         modulatingWave.setAmplitude(0.005);
         modulatingWave.setFrequency(5.0);
 
