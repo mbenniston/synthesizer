@@ -34,7 +34,7 @@ public class SampleWave extends WaveForm {
 
     @Override
     public double sample(double time) {
-        final double playTime = time - getStartTime();
+        final double playTime = Math.max(0.0, time - getStartTime());
 
         int overallSample = (int) (playTime * 44100.0 * getFrequency());
 
