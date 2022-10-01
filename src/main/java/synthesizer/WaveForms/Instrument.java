@@ -17,9 +17,16 @@ public class Instrument implements Cloneable {
         return instrument;
     }
 
-    public Instrument(Voice voicePrototype) throws CloneNotSupportedException {
+    public Instrument(Voice voicePrototype) {
         for (int i = 0; i < 128; i++) {
-            Voice voice = voicePrototype.clone();
+            Voice voice;
+
+            try {
+                voice = voicePrototype.clone();
+            } catch (CloneNotSupportedException e) {
+                voice = StandardVoices.createDefaultVoice();
+            }
+
             voice.waveForm.setFrequency(Tone.getFrequencyFromTone(i));
             voices[i] = voice;
         }

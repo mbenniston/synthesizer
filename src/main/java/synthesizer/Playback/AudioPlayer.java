@@ -13,11 +13,11 @@ import javax.sound.sampled.AudioFormat.Encoding;
 import com.google.common.base.Stopwatch;
 
 public class AudioPlayer {
-    private static final int SAMPLE_RATE = 44100;
-    private static final double TIME_PER_SAMPLE = 1.0 / SAMPLE_RATE;
-    private static final int SAMPLE_BITS = Short.BYTES * 8;
-    private static final int NUM_BUFFERED_SAMPLES = 512;
-    private static final double BLOCK_TIME = NUM_BUFFERED_SAMPLES * TIME_PER_SAMPLE;
+    public static final int SAMPLE_RATE = 44100;
+    public static final double TIME_PER_SAMPLE = 1.0 / SAMPLE_RATE;
+    public static final int SAMPLE_BITS = Short.BYTES * 8;
+    public static final int NUM_BUFFERED_SAMPLES = 512;
+    public static final double BLOCK_TIME = NUM_BUFFERED_SAMPLES * TIME_PER_SAMPLE;
 
     public static abstract class SampleProvider {
         public abstract double nextSample(double time, long sample);
