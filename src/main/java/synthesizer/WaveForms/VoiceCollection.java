@@ -2,6 +2,9 @@ package synthesizer.WaveForms;
 
 import java.util.ArrayList;
 
+/**
+ * Controls a collection of voices that can all be sampled at the same time.
+ */
 public class VoiceCollection {
     private ArrayList<Voice> voices = new ArrayList<>();
 

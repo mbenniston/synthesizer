@@ -12,13 +12,13 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.sound.sampled.AudioFormat.Encoding;
 
-// load sample data from audio file
-// sample data is converted to our audio format
-// so no runtime conversion is needed
+/**
+ * Loads sample data from audio file.
+ * Sample data is converted to our audio format so no runtime conversion is needed.
+ */
 public class SampleLoader {
 
     public static double[] loadSample(InputStream stream) throws IOException, UnsupportedAudioFileException {
-
         final AudioInputStream inputStreamAnyFormat = AudioSystem.getAudioInputStream(stream);
         final AudioFormat targetFormat = new AudioFormat(Encoding.PCM_SIGNED, 44100, 16, 1, 2, 44100, true);
         final AudioInputStream targetStream = AudioSystem.getAudioInputStream(targetFormat, inputStreamAnyFormat);
@@ -33,5 +33,4 @@ public class SampleLoader {
 
         return output;
     }
-
 }

@@ -1,5 +1,8 @@
 package synthesizer.WaveForms;
 
+/**
+ * Takes two input waves and combines them additively.
+ */
 public class AdditiveWave extends WaveForm {
     private WaveForm bottomWave;
     private WaveForm topWave;

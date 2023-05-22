@@ -2,12 +2,14 @@ package synthesizer.WaveForms;
 
 import synthesizer.Util.Tone;
 
-// Uses sample data to play audio
-// Has start, loop and end all in audio sample
+/**
+ * Uses sample data to play audio.
+ * Has start, loop and end all in audio sample.
+ */
 public class SampleWave extends WaveForm {
     private final double[] sampleData;
-    private int sampleIndex = 0;
-    private int loopSampleStart, loopSampleEnd;
+    private final int loopSampleStart;
+    private final int loopSampleEnd;
     private boolean triggeredOff = false;
 
     public SampleWave(double[] sampleData, int loopSampleStart, int loopSampleEnd) {
@@ -38,7 +40,7 @@ public class SampleWave extends WaveForm {
 
         int overallSample = (int) (playTime * 44100.0 * getFrequency());
 
-        sampleIndex = overallSample % sampleData.length;
+        int sampleIndex = overallSample % sampleData.length;
 
         if (overallSample > loopSampleStart) {
 

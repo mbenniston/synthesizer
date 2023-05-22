@@ -12,6 +12,11 @@ import javax.sound.sampled.AudioFormat.Encoding;
 
 import com.google.common.base.Stopwatch;
 
+/**
+ * Allows samples to be played to an audio device.
+ * This class blocks while playing these samples and so sample collection is
+ * driven by a SampleProvider interface the user must implement.
+ */
 public class AudioPlayer {
     public static final int SAMPLE_RATE = 44100;
     public static final double TIME_PER_SAMPLE = 1.0 / SAMPLE_RATE;

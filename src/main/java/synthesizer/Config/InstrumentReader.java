@@ -30,17 +30,12 @@ import synthesizer.WaveForms.TriangleWave;
 import synthesizer.WaveForms.Voice;
 import synthesizer.WaveForms.WaveForm;
 
+/**
+ * Reads a collection of instruments from a json encoded file.
+ */
 public class InstrumentReader {
 
-    public static class LoadedInstrument {
-        public final Instrument instrument;
-        public final int programStartID, programEndID;
-
-        public LoadedInstrument(Instrument instrument, int programStartID, int programEndID) {
-            this.instrument = instrument;
-            this.programStartID = programStartID;
-            this.programEndID = programEndID;
-        }
+    public record LoadedInstrument(Instrument instrument, int programStartID, int programEndID) {
     }
 
     HashMap<String, WaveForm> namedWaves = new HashMap<>();
@@ -96,18 +91,11 @@ public class InstrumentReader {
         return instruments;
     }
 
-    private static class Note {
-        public final Voice voice;
-        public final int noteID;
-
-        public Note(Voice voice, int noteID) {
-            this.voice = voice;
-            this.noteID = noteID;
-        }
+    private record Note(Voice voice, int noteID) {
     }
 
     private LoadedInstrument loadInstrument(JSONObject instrumentObject, HashMap<String, WaveForm> waveForms,
-            HashMap<String, Envelope> envelopes, HashMap<String, Voice> namedVoices)
+                                            HashMap<String, Envelope> envelopes, HashMap<String, Voice> namedVoices)
             throws FileNotFoundException, JSONException, IOException, UnsupportedAudioFileException,
             CloneNotSupportedException {
 
@@ -155,7 +143,7 @@ public class InstrumentReader {
     }
 
     private Voice loadVoiceFromJson(Object voiceObject, Map<String, WaveForm> waveForms,
-            Map<String, Envelope> envelopes)
+                                    Map<String, Envelope> envelopes)
             throws FileNotFoundException, JSONException, IOException, UnsupportedAudioFileException {
 
         if (voiceObject instanceof String) {

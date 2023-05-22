@@ -1,5 +1,8 @@
 package synthesizer.WaveForms;
 
+/**
+ * Contains utility functions for creating common voices.
+ */
 public class StandardVoices {
 
     public static Voice createDefaultVoice() {

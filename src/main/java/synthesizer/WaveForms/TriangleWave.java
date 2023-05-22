@@ -1,5 +1,8 @@
 package synthesizer.WaveForms;
 
+/**
+ * Implements a triangle waveform.
+ */
 public class TriangleWave extends WaveForm {
 
     public double sample(double time) {

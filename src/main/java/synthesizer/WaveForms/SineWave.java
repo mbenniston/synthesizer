@@ -1,5 +1,8 @@
 package synthesizer.WaveForms;
 
+/**
+ * Implements a sine waveform.
+ */
 public class SineWave extends WaveForm {
 
     public double sample(double time) {

@@ -1,5 +1,8 @@
 package synthesizer.WaveForms;
 
+/**
+ * Implements a square waveform.
+ */
 public class SquareWave extends WaveForm {
 
     public double sample(double time) {

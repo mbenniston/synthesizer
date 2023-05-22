@@ -1,5 +1,8 @@
 package synthesizer.WaveForms;
 
+/**
+ * Takes an input wave and modulates it using another wave.
+ */
 public class ModulatedWave extends WaveForm {
     private WaveForm messageWave;
     private WaveForm modulatingWave;

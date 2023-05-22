@@ -1,5 +1,8 @@
 package synthesizer.WaveForms;
 
+/**
+ * Combines a wave form with an envelope to represent a single playable note.
+ */
 public class Voice implements Cloneable {
     public final WaveForm waveForm;
     public final Envelope envelope;

@@ -1,5 +1,8 @@
 package synthesizer.WaveForms;
 
+/**
+ * Implements a saw waveform.
+ */
 public class SawWave extends WaveForm {
 
     public double sample(double time) {

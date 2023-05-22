@@ -1,5 +1,8 @@
 package synthesizer.WaveForms;
 
+/**
+ * Specifies an amplitude over time controlled by the attack, decay and release parameters.
+ */
 public class Envelope implements Cloneable {
     public double attackTime = 0.01;
     public double decayTime = 0.01;

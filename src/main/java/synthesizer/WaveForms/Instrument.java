@@ -2,9 +2,12 @@ package synthesizer.WaveForms;
 
 import synthesizer.Util.Tone;
 
+/**
+ * Represents an instrument containing 128 individual playable notes.
+ */
 public class Instrument implements Cloneable {
-    private VoiceCollection collection = new VoiceCollection();
-    private Voice[] voices = new Voice[128];
+    private final VoiceCollection collection = new VoiceCollection();
+    private final Voice[] voices;
     private double volumeScale = 1.0;
 
     public Instrument clone() throws CloneNotSupportedException {
@@ -18,6 +21,7 @@ public class Instrument implements Cloneable {
     }
 
     public Instrument(Voice voicePrototype) {
+        voices = new Voice[128];
         for (int i = 0; i < 128; i++) {
             Voice voice;
 

@@ -2,6 +2,9 @@ package synthesizer.WaveForms;
 
 import java.util.Random;
 
+/**
+ * Outputs a random level of noise.
+ */
 public class NoiseWave extends WaveForm {
     private Random random = new Random();
 

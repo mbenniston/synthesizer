@@ -1,5 +1,8 @@
 package synthesizer.WaveForms;
 
+/**
+ * Base class for waveforms extend. Contains parameters for frequency and amplitude.
+ */
 public abstract class WaveForm implements Cloneable {
     private double frequency = 1.0;
     private double amplitude = 1.0;
